@@ -20,6 +20,15 @@ const Home: NextPage = () => {
     typeOfEmployee: "Salaried employees paid a fixed salary",
   });
 
+  const nestedArr = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ];
+
+  const flattenedArr = nestedArr.reduce((acc, val) => acc.concat(val), []);
+  console.log(flattenedArr);
+
   return (
     <>
       <Head>
