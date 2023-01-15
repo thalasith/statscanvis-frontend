@@ -5,8 +5,11 @@ import Link from "next/link";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
+  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const data = api.labor_stats.getEmploymentByGeography.useQuery({
+    geography: "Canada ",
+  });
+  console.log(data);
   return (
     <>
       <Head>
@@ -43,9 +46,9 @@ const Home: NextPage = () => {
               </div>
             </Link>
           </div>
-          <p className="text-2xl text-white">
+          {/* <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
+          </p> */}
         </div>
       </main>
     </>
