@@ -4,15 +4,14 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const laborStatsRouter = createTRPCRouter({
   getEmploymentByGeography: publicProcedure
-    .input(z.object({ geography: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.monthly_employment_by_industry.findMany({
+    .input(z.object({ geography: z.string(), typeOfEmployee: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const data = await ctx.prisma.monthly_employment_by_industry.findMany({
         where: {
           geography: input.geography,
+          type_of_employee: input.typeOfEmployee,
         },
         select: {
-          geography: true,
-          type_of_employee: true,
           month: true,
           forestry_logging_and_support: true,
           mining_quarrying_and_oil_and_gas_extraction: true,
@@ -35,5 +34,7 @@ export const laborStatsRouter = createTRPCRouter({
           public_administration: true,
         },
       });
+
+      return data;
     }),
 });
