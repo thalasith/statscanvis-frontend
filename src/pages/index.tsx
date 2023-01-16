@@ -58,7 +58,6 @@ const Home: NextPage = () => {
       "Dec",
     ];
     const dateArr = value.split(" ");
-    const test = dateArr[0]?.slice(0, 3);
     const month = months.indexOf((dateArr[0] || "January")?.slice(0, 3));
     const year = dateArr[1]?.slice(-2);
     return `${months[month]} ${year}`;
