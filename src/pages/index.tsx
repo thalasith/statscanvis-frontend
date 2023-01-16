@@ -42,6 +42,28 @@ const Home: NextPage = () => {
     }).format(value);
   };
 
+  const formatDate = (value: string) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const dateArr = value.split(" ");
+    const test = dateArr[0]?.slice(0, 3);
+    const month = months.indexOf((dateArr[0] || "January")?.slice(0, 3));
+    const year = dateArr[1]?.slice(-2);
+    return `${months[month]} ${year}`;
+  };
+
   const Chart = () => {
     return (
       <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:mx-8 lg:w-1/2 lg:py-4">
@@ -56,24 +78,7 @@ const Home: NextPage = () => {
               dataKey="month"
               interval={1}
               tickFormatter={(value): string => {
-                const months = [
-                  "Jan",
-                  "Feb",
-                  "Mar",
-                  "Apr",
-                  "May",
-                  "Jun",
-                  "Jul",
-                  "Aug",
-                  "Sep",
-                  "Oct",
-                  "Nov",
-                  "Dec",
-                ];
-                const dateArr = value.split(" ");
-                const month = months.indexOf(dateArr[0]?.slice(0, 3));
-                const year = dateArr[1]?.slice(-2);
-                return `${months[month]} ${year}`;
+                return formatDate(value);
               }}
             />
             <YAxis
