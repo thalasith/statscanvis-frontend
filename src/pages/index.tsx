@@ -35,6 +35,13 @@ const Home: NextPage = () => {
     { dataKey: "manufacturing", fill: "#FFCF56", name: "Manufacturing" },
   ];
 
+  const formatTick = (value: number) => {
+    new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      compactDisplay: "short",
+    }).format(value);
+  };
+
   const Chart = () => {
     return (
       <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:mx-8 lg:w-1/2 lg:py-4">
@@ -69,14 +76,7 @@ const Home: NextPage = () => {
               //   return `${months[month]} ${year}`;
               // }}
             />
-            <YAxis
-              tickFormatter={(value) =>
-                new Intl.NumberFormat("en-US", {
-                  notation: "compact",
-                  compactDisplay: "short",
-                }).format(value)
-              }
-            />
+            <YAxis />
             <Tooltip
               formatter={(value) => value && value.toLocaleString()}
               wrapperStyle={{ outline: "none" }}
