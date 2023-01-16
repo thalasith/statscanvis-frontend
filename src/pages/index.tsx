@@ -85,6 +85,7 @@ const Home: NextPage = () => {
             {chartData.map((item) => {
               return (
                 <Area
+                  key={item.name}
                   type="monotone"
                   name={item.name}
                   dataKey={item.dataKey}
