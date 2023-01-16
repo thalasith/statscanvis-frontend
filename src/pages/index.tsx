@@ -59,7 +59,7 @@ const Home: NextPage = () => {
     ];
     const dateArr = value.split(" ");
     const month = months.indexOf((dateArr[0] || "January")?.slice(0, 3));
-    const year = dateArr[1]?.slice(-2);
+    const year = (dateArr[1] || "2020")?.slice(-2);
     return `${months[month]} ${year}`;
   };
 
