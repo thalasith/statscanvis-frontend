@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             <XAxis
               dataKey="month"
               interval={1}
-              // tickFormatter={(value) => {
+              // tickFormatter={(value): string => {
               //   const months = [
               //     "Jan",
               //     "Feb",
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
               //   return `${months[month]} ${year}`;
               // }}
             />
-            <YAxis tickFormatter={(value) => value.toLocaleString()} />
+            <YAxis tickFormatter={(value): string => value.toLocaleString()} />
             <Tooltip
               formatter={(value) => value && value.toLocaleString()}
               wrapperStyle={{ outline: "none" }}
