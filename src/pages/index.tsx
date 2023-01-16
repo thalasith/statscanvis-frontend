@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
+import { formatDate } from "../utils/formatter";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
@@ -35,33 +35,11 @@ const Home: NextPage = () => {
     { dataKey: "manufacturing", fill: "#FFCF56", name: "Manufacturing" },
   ];
 
-  const formatTick = (value: number) => {
-    new Intl.NumberFormat("en-US", {
+  const formatTick = (value: number): string => {
+    return Intl.NumberFormat("en-US", {
       notation: "compact",
-      compactDisplay: "short",
+      maximumFractionDigits: 1,
     }).format(value);
-  };
-
-  const formatDate = (value: string) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const dateArr = value.split(" ");
-    const month = months.indexOf((dateArr[0] || "January")?.slice(0, 3));
-    const year = (dateArr[1] || "2020")?.slice(-2);
-    console.log(month, year);
-    return `${months[month] || "Jan"} ${year}` || "Jan 20";
   };
 
   const Chart = () => {
@@ -85,7 +63,7 @@ const Home: NextPage = () => {
               tickFormatter={(value: number): string => value.toLocaleString()}
             />
             <Tooltip
-              formatter={(value): string => value.toLocaleString()}
+              formatter={(value): string => formatTick(value as number)}
               wrapperStyle={{ outline: "none" }}
             />
             <Legend />
