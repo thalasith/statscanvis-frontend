@@ -18,3 +18,10 @@ export const formatDate = (value: string) => {
   const year = (dateArr[1] || "2020")?.slice(-2);
   return `${months[month] || "Jan"} ${year}` || "Jan 20";
 };
+
+export const shortenNumber = (value: number): string => {
+  return Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
+};

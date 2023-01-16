@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { formatDate } from "../utils/formatter";
+import { formatDate, shortenNumber } from "../utils/formatter";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
@@ -35,16 +35,9 @@ const Home: NextPage = () => {
     { dataKey: "manufacturing", fill: "#FFCF56", name: "Manufacturing" },
   ];
 
-  const formatTick = (value: number): string => {
-    return Intl.NumberFormat("en-US", {
-      notation: "compact",
-      maximumFractionDigits: 1,
-    }).format(value);
-  };
-
   const Chart = () => {
     return (
-      <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:mx-8 lg:w-1/2 lg:py-4">
+      <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:w-1/2">
         <h1 className="text-2xl font-bold text-gray-700">
           Employment by Industry
         </h1>
@@ -60,10 +53,10 @@ const Home: NextPage = () => {
               }}
             />
             <YAxis
-              tickFormatter={(value: number): string => value.toLocaleString()}
+              tickFormatter={(value): string => shortenNumber(value as number)}
             />
             <Tooltip
-              formatter={(value): string => formatTick(value as number)}
+              formatter={(value): string => shortenNumber(value as number)}
               wrapperStyle={{ outline: "none" }}
             />
             <Legend />
@@ -94,10 +87,63 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center">
-        <div>Hi there</div>
-        <div className="flex w-full flex-col lg:flex-row">
-          {data && <Chart />}
-          {data && <Chart />}
+        <div className="container mx-auto">
+          <div className="mx-2 w-1/3 bg-gray-200 px-4 py-5 sm:p-6">
+            <div className="grid-rows row-span-3 grid">
+              <div className="mb-4">
+                <label
+                  htmlFor="first-name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Employee Type
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option>All employees</option>
+                  <option>Employees paid by the hour</option>
+                  <option>Salaried employees paid a fixed salary</option>
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="first-name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Employee Type
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option> Canada </option>
+                  <option> Newfoundland and Labrador </option>
+                  <option> Prince Edward Island </option>
+                  <option> Nova Scotia </option>
+                  <option> New Brunswick </option>
+                  <option> Quebec </option>
+                  <option> Ontario </option>
+                  <option> Manitoba </option>
+                  <option> Saskatchewan </option>
+                  <option> Alberta </option>
+                  <option> British Columbia </option>
+                  <option> Yukon </option>
+                  <option> Northwest Territories </option>
+                  <option> Nunavut </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="flex w-full flex-col lg:flex-row">
+            {data && <Chart />}
+            {data && <Chart />}
+          </div>
         </div>
         {/* </div> */}
       </main>
