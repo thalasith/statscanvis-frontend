@@ -60,7 +60,7 @@ const Home: NextPage = () => {
     const dateArr = value.split(" ");
     const month = months.indexOf((dateArr[0] || "January")?.slice(0, 3));
     const year = (dateArr[1] || "2020")?.slice(-2);
-    return `${months[month]} ${year}`;
+    return `${months[month]} ${year}` || "Jan 20";
   };
 
   const Chart = () => {
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
             <XAxis
               dataKey="month"
               interval={1}
-              tickFormatter={(value): string => {
+              tickFormatter={(value: string): string => {
                 return formatDate(value);
               }}
             />
