@@ -76,9 +76,11 @@ const Home: NextPage = () => {
               //   return `${months[month]} ${year}`;
               // }}
             />
-            <YAxis tickFormatter={(value): string => value.toLocaleString()} />
+            <YAxis
+              tickFormatter={(value: number): string => value.toLocaleString()}
+            />
             <Tooltip
-              formatter={(value) => value && value.toLocaleString()}
+              formatter={(value): string => value.toLocaleString()}
               wrapperStyle={{ outline: "none" }}
             />
             <Legend />
