@@ -26,14 +26,31 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const laborStatsRouter = createTRPCRouter({
   getEmploymentByGeography: publicProcedure
-    .input(z.object({ geography: z.string(), typeOfEmployee: z.string() }))
+    .input(
+      z.object({
+        geography: z.string(),
+        typeOfEmployee: z.string(),
+        startDate: z.string(),
+        endDate: z.string(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const whereQuery =
         input.typeOfEmployee === "All employees"
-          ? { geography: input.geography }
+          ? {
+              geography: input.geography,
+              month: {
+                gte: new Date(input.startDate),
+                lte: new Date(input.endDate),
+              },
+            }
           : {
               geography: input.geography,
               type_of_employee: input.typeOfEmployee,
+              month: {
+                gte: new Date(input.startDate),
+                lte: new Date(input.endDate),
+              },
             };
 
       const data = await ctx.prisma.monthly_employment_by_industry.groupBy({
@@ -63,8 +80,9 @@ export const laborStatsRouter = createTRPCRouter({
       });
 
       const outputData = data.map((item) => {
-        return { ...item._sum, month: item.month };
+        return { ...item._sum, month: item.month.toISOString().slice(0, 7) };
       });
+
       return outputData;
     }),
 });

@@ -39,6 +39,6 @@ model monthly_employment_by_industry {
     date String
     geography String
     type_of_employee String
-    month String
+    month DateTime
 
 }

@@ -19,12 +19,22 @@ const Home: NextPage = () => {
     "Salaried employees paid a fixed salary"
   );
   const [geography, setGeography] = useState("Canada");
+  const [startDate, setStartDate] = useState("2022-01-01");
+  const [endDate, setEndDate] = useState("2022-12-31");
 
   const { data } = api.labor_stats.getEmploymentByGeography.useQuery({
     geography: geography,
     typeOfEmployee: employeeType,
+    startDate: startDate,
+    endDate: "2022-12-31",
   });
-  console.log(data);
+
+  const changeDateFormat = (date: string) => {
+    const dateArray = date.split(" ");
+    const month = dateArray[0];
+    const year = "20" + dateArray[1];
+    setStartDate(new Date(month + " " + year).toISOString().slice(0, 10));
+  };
 
   const chartData = [
     {
@@ -52,13 +62,7 @@ const Home: NextPage = () => {
         <ResponsiveContainer width="95%" height={300}>
           <AreaChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="month"
-              interval={1}
-              tickFormatter={(value: string): string => {
-                return formatDate(value);
-              }}
-            />
+            <XAxis dataKey="month" interval={1} />
             <YAxis
               tickFormatter={(value): string => shortenNumber(value as number)}
             />
@@ -162,11 +166,23 @@ const Home: NextPage = () => {
                   <select
                     id="startDate"
                     name="startDate"
+                    onChange={(e) => {
+                      changeDateFormat(e.target.value);
+                    }}
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option>Jan 22</option>
-                    <option>Feb 22</option>
-                    <option>Mar 22</option>
+                    <option selected>January 22</option>
+                    <option>February 22</option>
+                    <option>March 22</option>
+                    <option>April 22</option>
+                    <option>May 22</option>
+                    <option>June 22</option>
+                    <option>July 22</option>
+                    <option>August 22</option>
+                    <option>September 22</option>
+                    <option>October 22</option>
+                    <option>November 22</option>
+                    <option>December 22</option>
                   </select>
                 </div>
 
@@ -182,9 +198,18 @@ const Home: NextPage = () => {
                     name="endDate"
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option>Jan 22</option>
-                    <option>Feb 22</option>
-                    <option selected>Mar 22</option>
+                    <option>January 22</option>
+                    <option>February 22</option>
+                    <option>March 22</option>
+                    <option>April 22</option>
+                    <option>May 22</option>
+                    <option>June 22</option>
+                    <option>July 22</option>
+                    <option>August 22</option>
+                    <option>September 22</option>
+                    <option>October 22</option>
+                    <option>November 22</option>
+                    <option selected>December 22</option>
                   </select>
                 </div>
               </div>
