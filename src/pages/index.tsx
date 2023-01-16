@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import {
   AreaChart,
   Area,
@@ -14,10 +15,16 @@ import { formatDate, shortenNumber } from "../utils/formatter";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
+  const [employeeType, setEmployeeType] = useState(
+    "Salaried employees paid a fixed salary"
+  );
+  const [geography, setGeography] = useState("Canada");
+
   const { data } = api.labor_stats.getEmploymentByGeography.useQuery({
-    geography: "Canada ",
-    typeOfEmployee: "Salaried employees paid a fixed salary",
+    geography: geography,
+    typeOfEmployee: employeeType,
   });
+  console.log(data);
 
   const chartData = [
     {
@@ -92,15 +99,18 @@ const Home: NextPage = () => {
             <div className="grid-rows row-span-3 grid">
               <div className="mb-4">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="employeeType"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Employee Type
                 </label>
                 <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
+                  id="employeeType"
+                  name="employeeType"
+                  value={employeeType}
+                  onChange={(e) => {
+                    setEmployeeType(e.target.value);
+                  }}
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
                   <option>All employees</option>
@@ -111,15 +121,18 @@ const Home: NextPage = () => {
 
               <div className="mb-4">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="geography"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Employee Type
+                  Geography
                 </label>
                 <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
+                  id="geography"
+                  name="geography"
+                  value={geography}
+                  onChange={(e) => {
+                    setGeography(e.target.value);
+                  }}
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
                   <option> Canada </option>
@@ -137,6 +150,43 @@ const Home: NextPage = () => {
                   <option> Northwest Territories </option>
                   <option> Nunavut </option>
                 </select>
+              </div>
+              <div className="flex flex-row">
+                <div className="mr-2 w-1/2">
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Start Date
+                  </label>
+                  <select
+                    id="startDate"
+                    name="startDate"
+                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  >
+                    <option>Jan 22</option>
+                    <option>Feb 22</option>
+                    <option>Mar 22</option>
+                  </select>
+                </div>
+
+                <div className="mr-2 w-1/2">
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    End Date
+                  </label>
+                  <select
+                    id="endDate"
+                    name="endDate"
+                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  >
+                    <option>Jan 22</option>
+                    <option>Feb 22</option>
+                    <option selected>Mar 22</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
