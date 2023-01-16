@@ -55,26 +55,26 @@ const Home: NextPage = () => {
             <XAxis
               dataKey="month"
               interval={1}
-              // tickFormatter={(value): string => {
-              //   const months = [
-              //     "Jan",
-              //     "Feb",
-              //     "Mar",
-              //     "Apr",
-              //     "May",
-              //     "Jun",
-              //     "Jul",
-              //     "Aug",
-              //     "Sep",
-              //     "Oct",
-              //     "Nov",
-              //     "Dec",
-              //   ];
-              //   const dateArr = value.split(" ");
-              //   const month = months.indexOf(dateArr[0]?.slice(0, 3));
-              //   const year = dateArr[1]?.slice(-2);
-              //   return `${months[month]} ${year}`;
-              // }}
+              tickFormatter={(value): string => {
+                const months = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ];
+                const dateArr = value.split(" ");
+                const month = months.indexOf(dateArr[0]?.slice(0, 3));
+                const year = dateArr[1]?.slice(-2);
+                return `${months[month]} ${year}`;
+              }}
             />
             <YAxis
               tickFormatter={(value: number): string => value.toLocaleString()}
