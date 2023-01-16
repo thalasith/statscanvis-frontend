@@ -37,41 +37,44 @@ const Home: NextPage = () => {
 
   const Chart = () => {
     return (
-      <AreaChart
-        data={data}
-        width={600}
-        height={300}
-        margin={{
-          top: 10,
-          right: 0,
-          left: 70,
-          bottom: 0,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis
-          tickFormatter={(value) =>
-            new Intl.NumberFormat("en-US", {
-              notation: "compact",
-              compactDisplay: "short",
-            }).format(value)
-          }
-        />
-        <Tooltip formatter={(value) => value && value.toLocaleString()} />
-        {chartData.map((item) => {
-          return (
-            <Area
-              type="monotone"
-              name={item.name}
-              dataKey={item.dataKey}
-              stroke={item.fill}
-              fill={item.fill}
-              stackId="1"
-            />
-          );
-        })}
-      </AreaChart>
+      <ResponsiveContainer width={700} height={300}>
+        <AreaChart
+          data={data}
+          margin={{
+            top: 10,
+            right: 0,
+            left: 70,
+            bottom: 0,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis
+            tickFormatter={(value) =>
+              new Intl.NumberFormat("en-US", {
+                notation: "compact",
+                compactDisplay: "short",
+              }).format(value)
+            }
+          />
+          <Tooltip
+            formatter={(value) => value && value.toLocaleString()}
+            wrapperStyle={{ outline: "none" }}
+          />
+          {chartData.map((item) => {
+            return (
+              <Area
+                type="monotone"
+                name={item.name}
+                dataKey={item.dataKey}
+                stroke={item.fill}
+                fill={item.fill}
+                stackId="1"
+              />
+            );
+          })}
+        </AreaChart>
+      </ResponsiveContainer>
     );
   };
 
@@ -84,7 +87,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center">
         <div>Hi there</div>
-        {data && <Chart />}
+        <div className="w-full">{data && <Chart />}</div>
         {/* </div> */}
       </main>
     </>
