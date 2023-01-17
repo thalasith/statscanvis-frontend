@@ -30,10 +30,7 @@ const Home: NextPage = () => {
   });
 
   const changeDateFormat = (date: string) => {
-    const dateArray = date.split(" ");
-    const month = dateArray[0];
-    const year = `20 ${dateArray[1]}` || "2022";
-    setStartDate(new Date(`${month} ${year}`).toISOString().slice(0, 10));
+    setStartDate(new Date(date).toISOString().slice(0, 10));
   };
 
   const chartData = [
@@ -171,18 +168,20 @@ const Home: NextPage = () => {
                     }}
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option selected>January 22</option>
-                    <option>February 22</option>
-                    <option>March 22</option>
-                    <option>April 22</option>
-                    <option>May 22</option>
-                    <option>June 22</option>
-                    <option>July 22</option>
-                    <option>August 22</option>
-                    <option>September 22</option>
-                    <option>October 22</option>
-                    <option>November 22</option>
-                    <option>December 22</option>
+                    <option value="January 1, 2022" selected>
+                      January 2022
+                    </option>
+                    <option value="February 1, 2022">February 2022</option>
+                    <option value="March 1, 2022">March 2022</option>
+                    <option value="April 1, 2022">April 2022</option>
+                    <option value="May 1, 2022">May 2022</option>
+                    <option value="June 1, 2022">June 2022</option>
+                    <option value="July 1, 2022">July 2022</option>
+                    <option value="August 1, 2022">August 2022</option>
+                    <option value="September 1, 2022">September 2022</option>
+                    <option value="October 1, 2022">October 2022</option>
+                    <option value="November 1, 2022">November 2022</option>
+                    <option value="December 1, 2022">December 2022</option>
                   </select>
                 </div>
 
@@ -198,12 +197,12 @@ const Home: NextPage = () => {
                     name="endDate"
                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option>January 22</option>
-                    <option>February 22</option>
-                    <option>March 22</option>
-                    <option>April 22</option>
-                    <option>May 22</option>
-                    <option>June 22</option>
+                    <option>January 2022</option>
+                    <option>February 2022</option>
+                    <option>March 2022</option>
+                    <option>April 2022</option>
+                    <option>May 2022</option>
+                    <option>June 2022</option>
                     <option>July 22</option>
                     <option>August 22</option>
                     <option>September 22</option>
