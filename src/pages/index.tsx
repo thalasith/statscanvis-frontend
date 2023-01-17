@@ -32,8 +32,8 @@ const Home: NextPage = () => {
   const changeDateFormat = (date: string) => {
     const dateArray = date.split(" ");
     const month = dateArray[0];
-    const year = `20 ${dateArray[1]}`;
-    setStartDate(new Date(month + " " + year).toISOString().slice(0, 10));
+    const year = `20 ${dateArray[1]}` || "2022";
+    setStartDate(new Date(`${month} ${year}`).toISOString().slice(0, 10));
   };
 
   const chartData = [
