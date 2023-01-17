@@ -69,7 +69,7 @@ export const laborStatsRouter = createTRPCRouter({
           real_estate_and_rental_and_leasing: true,
           professional_scientific_and_technical_services: true,
           management_of_companies_and_enterprises: true,
-          administrative_and_support_waste_management_and_remediation_: true,
+          administrative_and_support_waste_management_and_remediation: true,
           educational_services: true,
           health_care_and_social_assistance: true,
           arts_entertainment_and_recreation: true,

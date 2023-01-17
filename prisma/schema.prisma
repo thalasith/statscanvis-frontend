@@ -12,7 +12,7 @@ datasource db {
 
 model monthly_employment_by_industry {
     id Int @id @default(autoincrement())
-    industrial_aggregate_including_unclassified_businesses Float
+    industrial_aggregate_including_unclassified_businesses Float 
     industrial_aggregate_excluding_unclassified_businesses Float
     goods_producing_industries Float
     forestry_logging_and_support Float
@@ -28,7 +28,7 @@ model monthly_employment_by_industry {
     real_estate_and_rental_and_leasing Float
     professional_scientific_and_technical_services Float
     management_of_companies_and_enterprises Float
-    administrative_and_support_waste_management_and_remediation_ Float
+    administrative_and_support_waste_management_and_remediation Float
     educational_services Float
     health_care_and_social_assistance Float
     arts_entertainment_and_recreation Float
@@ -40,5 +40,35 @@ model monthly_employment_by_industry {
     geography String
     type_of_employee String
     month DateTime
+}
 
+model monthly_weekly_earnings_by_industry {
+    id Int @id @default(autoincrement())
+    industrial_aggregate_including_unclassified_businesses Float @default(0)
+    industrial_aggregate_excluding_unclassified_businesses Float
+    goods_producing_industries Float
+    forestry_logging_and_support Float
+    mining_quarrying_and_oil_and_gas_extraction Float
+    utilities Float
+    construction Float
+    manufacturing Float
+    service_producing_industries Float
+    trade Float
+    transportation_and_warehousing Float
+    information_and_cultural_industries Float
+    finance_and_insurance Float
+    real_estate_and_rental_and_leasing Float
+    professional_scientific_and_technical_services Float
+    management_of_companies_and_enterprises Float
+    administrative_and_support_waste_management_and_remediation Float
+    educational_services Float
+    health_care_and_social_assistance Float
+    arts_entertainment_and_recreation Float
+    accommodation_and_food_services Float
+    other_services_except_public_administration Float
+    public_administration Float
+    date String
+    geography String
+    type_of_employee String
+    month DateTime
 }
