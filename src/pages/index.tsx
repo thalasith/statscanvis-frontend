@@ -1,17 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { formatDate, shortenNumber } from "../utils/formatter";
+import AreaGraph from "../components/AreaGraph";
+import LineGraph from "../components/LineGraph";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
@@ -22,18 +13,27 @@ const Home: NextPage = () => {
   const [startDate, setStartDate] = useState("2022-01-01");
   const [endDate, setEndDate] = useState("2022-12-31");
 
-  const { data } = api.labor_stats.getEmploymentByGeography.useQuery({
-    geography: geography,
-    typeOfEmployee: employeeType,
-    startDate: startDate,
-    endDate: "2022-12-31",
-  });
+  const { data: employmentData } =
+    api.labor_stats.getEmploymentByGeography.useQuery({
+      geography: geography,
+      typeOfEmployee: employeeType,
+      startDate: startDate,
+      endDate: "2022-12-31",
+    });
+
+  const { data: salaryData } =
+    api.labor_stats.getWeeklySalaryByGeography.useQuery({
+      geography: geography,
+      typeOfEmployee: employeeType,
+      startDate: startDate,
+      endDate: "2022-12-31",
+    });
 
   const changeDateFormat = (date: string) => {
     setStartDate(new Date(date).toISOString().slice(0, 10));
   };
 
-  const chartData = [
+  const xAxisData = [
     {
       dataKey: "forestry_logging_and_support",
       fill: "#3AB795",
@@ -48,44 +48,6 @@ const Home: NextPage = () => {
     { dataKey: "construction", fill: "#EDEAD0", name: "Construction" },
     { dataKey: "manufacturing", fill: "#FFCF56", name: "Manufacturing" },
   ];
-
-  const Chart = () => {
-    return (
-      <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:w-1/2">
-        <h1 className="text-2xl font-bold text-gray-700">
-          Employment by Industry
-        </h1>
-
-        <ResponsiveContainer width="95%" height={300}>
-          <AreaChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" interval={1} />
-            <YAxis
-              tickFormatter={(value): string => shortenNumber(value as number)}
-            />
-            <Tooltip
-              formatter={(value): string => shortenNumber(value as number)}
-              wrapperStyle={{ outline: "none" }}
-            />
-            <Legend />
-            {chartData.map((item) => {
-              return (
-                <Area
-                  key={item.name}
-                  type="monotone"
-                  name={item.name}
-                  dataKey={item.dataKey}
-                  stroke={item.fill}
-                  fill={item.fill}
-                  stackId="1"
-                />
-              );
-            })}
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -215,8 +177,16 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="flex w-full flex-col lg:flex-row">
-            {data && <Chart />}
-            {data && <Chart />}
+            <AreaGraph
+              title="Employment By Industry"
+              xAxisData={xAxisData}
+              chartData={employmentData}
+            />
+            <LineGraph
+              title="Average Weekly Earnings"
+              xAxisData={xAxisData}
+              chartData={salaryData}
+            />
           </div>
         </div>
         {/* </div> */}
