@@ -1,9 +1,8 @@
-import { assert } from "console";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import AreaGraph from "../components/AreaGraph";
-import EmploymentSelector from "../components/EmploymentSelector";
+import EmploymentSelecter from "../components/EmploymentSelecter";
 import LineGraph from "../components/LineGraph";
 import { api } from "../utils/api";
 
@@ -78,7 +77,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center">
         <div className="container mx-auto">
-          <EmploymentSelector
+          <EmploymentSelecter
             employeeType={employeeType}
             setEmployeeType={setEmployeeType}
             geography={geography}

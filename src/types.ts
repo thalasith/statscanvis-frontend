@@ -26,3 +26,16 @@ export interface chartData {
   other_services_except_public_administration: number | null;
   public_administration: number | null;
 }
+
+interface options {
+  label: string;
+  value: string;
+  selected: boolean;
+}
+
+export interface SelecterProps {
+  options: options[];
+  value: string;
+  onChange: (value: string) => void;
+  name: string;
+}

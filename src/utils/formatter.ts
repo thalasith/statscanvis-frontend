@@ -25,3 +25,9 @@ export const shortenNumber = (value: number): string => {
     maximumFractionDigits: 1,
   }).format(value);
 };
+
+export const formatStringValues = (str: string): string => {
+  return str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, function (str) {
+    return str.toUpperCase();
+  });
+};
