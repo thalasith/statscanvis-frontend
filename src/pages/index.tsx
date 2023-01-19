@@ -31,6 +31,7 @@ const Home: NextPage = () => {
       startDate: startDate,
       endDate: endDate,
     });
+  console.log(salaryData);
 
   const changeStartDate = (date: string) => {
     if (new Date(date) > new Date(endDate)) {
@@ -90,11 +91,13 @@ const Home: NextPage = () => {
             setError={setError}
           />
           <div className="flex w-full flex-col lg:flex-row">
-            <AreaGraph
-              title="Employment By Industry"
-              xAxisData={xAxisData}
-              chartData={employmentData}
-            />
+            {employmentData && (
+              <AreaGraph
+                title="Employment By Industry"
+                xAxisData={xAxisData}
+                chartData={employmentData}
+              />
+            )}
             <LineGraph
               title="Average Weekly Earnings"
               xAxisData={xAxisData}

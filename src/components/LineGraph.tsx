@@ -9,18 +9,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface xAxisData {
-  dataKey: string;
-  fill: string;
-  name: string;
-}
+import { xAxisData, chartData } from "../types";
 
 import { shortenNumber } from "../utils/formatter";
 
 const LineGraph = (props: {
   title: string;
   xAxisData: xAxisData[];
-  chartData: any;
+  chartData: chartData[] | undefined;
 }) => {
   return (
     <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:w-1/2">
