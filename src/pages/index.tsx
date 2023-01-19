@@ -52,7 +52,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const xAxisData = [
+  const goodsProducingData = [
     {
       dataKey: "forestry_logging_and_support",
       fill: "#3AB795",
@@ -89,19 +89,29 @@ const Home: NextPage = () => {
             error={error}
             setError={setError}
           />
-          <div className="flex w-full flex-col lg:flex-row">
-            {employmentData && (
+          <div className="mx-2 mt-4 flex w-full flex-col items-center rounded bg-red-100 px-8 pt-2">
+            <h1 className="mt-2 text-2xl font-bold text-gray-800">
+              Goods Producing Industry Data for{" "}
+              {employeeType === "All employees"
+                ? "All Employees"
+                : employeeType === "Salaried employees paid a fixed salary"
+                ? "Salaried Employees"
+                : "Hourly Employees"}{" "}
+              in {geography}
+            </h1>
+            <div className="flex w-full flex-col lg:flex-row">
               <AreaGraph
                 title="Employment By Industry"
-                xAxisData={xAxisData}
+                xAxisData={goodsProducingData}
                 chartData={employmentData}
               />
-            )}
-            <LineGraph
-              title="Average Weekly Earnings"
-              xAxisData={xAxisData}
-              chartData={salaryData}
-            />
+
+              <LineGraph
+                title="Average Weekly Earnings"
+                xAxisData={goodsProducingData}
+                chartData={salaryData}
+              />
+            </div>
           </div>
         </div>
         {/* </div> */}

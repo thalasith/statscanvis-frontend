@@ -19,7 +19,7 @@ const LineGraph = (props: {
   chartData: chartData[] | undefined;
 }) => {
   return (
-    <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400 lg:w-1/2">
+    <div className="m-2 flex w-full flex-col items-center rounded border border-gray-400  bg-white lg:w-1/2">
       <h1 className="text-2xl font-bold text-gray-700">{props.title}</h1>
 
       <ResponsiveContainer width="95%" height={300}>

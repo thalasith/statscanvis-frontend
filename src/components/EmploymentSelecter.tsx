@@ -14,7 +14,7 @@ const EmploymentSelecter = (props: {
   setError: (value: string) => void;
 }) => {
   return (
-    <div className="mx-2 w-1/2 bg-gray-200 sm:p-6">
+    <div className="ml-2 w-1/2 rounded bg-red-100 sm:p-2">
       <div className="grid-rows row-span-3 grid">
         <div className="mb-4">
           <Selecter
@@ -47,7 +47,7 @@ const EmploymentSelecter = (props: {
               onChange={(e) => {
                 props.changeStartDate(e.target.value);
               }}
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border border-slate-400 bg-white py-2 px-3 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm"
             >
               {START_DATE.map((option) => (
                 <option
@@ -74,7 +74,7 @@ const EmploymentSelecter = (props: {
               onChange={(e) => {
                 props.changeEndDate(e.target.value);
               }}
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border border-slate-400 bg-white py-2 px-3 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm"
             >
               {END_DATE.map((option) => (
                 <option
