@@ -1,7 +1,9 @@
+import { assert } from "console";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import AreaGraph from "../components/AreaGraph";
+import EmploymentSelector from "../components/EmploymentSelector";
 import LineGraph from "../components/LineGraph";
 import { api } from "../utils/api";
 
@@ -12,13 +14,14 @@ const Home: NextPage = () => {
   const [geography, setGeography] = useState("Canada");
   const [startDate, setStartDate] = useState("2022-01-01");
   const [endDate, setEndDate] = useState("2022-12-31");
+  const [error, setError] = useState("");
 
   const { data: employmentData } =
     api.labor_stats.getEmploymentByGeography.useQuery({
       geography: geography,
       typeOfEmployee: employeeType,
       startDate: startDate,
-      endDate: "2022-12-31",
+      endDate: endDate,
     });
 
   const { data: salaryData } =
@@ -26,11 +29,27 @@ const Home: NextPage = () => {
       geography: geography,
       typeOfEmployee: employeeType,
       startDate: startDate,
-      endDate: "2022-12-31",
+      endDate: endDate,
     });
 
-  const changeDateFormat = (date: string) => {
-    setStartDate(new Date(date).toISOString().slice(0, 10));
+  const changeStartDate = (date: string) => {
+    if (new Date(date) > new Date(endDate)) {
+      setError("Start date must be before end date");
+      return;
+    } else {
+      setStartDate(new Date(date).toISOString().slice(0, 10));
+      setError("");
+    }
+  };
+
+  const changeEndDate = (date: string) => {
+    if (new Date(date) < new Date(startDate)) {
+      setError("End date must be after start date");
+      return;
+    } else {
+      setEndDate(new Date(date).toISOString().slice(0, 10));
+      setError("");
+    }
   };
 
   const xAxisData = [
@@ -58,124 +77,18 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center">
         <div className="container mx-auto">
-          <div className="mx-2 w-1/3 bg-gray-200 px-4 py-5 sm:p-6">
-            <div className="grid-rows row-span-3 grid">
-              <div className="mb-4">
-                <label
-                  htmlFor="employeeType"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Employee Type
-                </label>
-                <select
-                  id="employeeType"
-                  name="employeeType"
-                  value={employeeType}
-                  onChange={(e) => {
-                    setEmployeeType(e.target.value);
-                  }}
-                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                >
-                  <option>All employees</option>
-                  <option>Employees paid by the hour</option>
-                  <option>Salaried employees paid a fixed salary</option>
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <label
-                  htmlFor="geography"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Geography
-                </label>
-                <select
-                  id="geography"
-                  name="geography"
-                  value={geography}
-                  onChange={(e) => {
-                    setGeography(e.target.value);
-                  }}
-                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                >
-                  <option> Canada </option>
-                  <option> Newfoundland and Labrador </option>
-                  <option> Prince Edward Island </option>
-                  <option> Nova Scotia </option>
-                  <option> New Brunswick </option>
-                  <option> Quebec </option>
-                  <option> Ontario </option>
-                  <option> Manitoba </option>
-                  <option> Saskatchewan </option>
-                  <option> Alberta </option>
-                  <option> British Columbia </option>
-                  <option> Yukon </option>
-                  <option> Northwest Territories </option>
-                  <option> Nunavut </option>
-                </select>
-              </div>
-              <div className="flex flex-row">
-                <div className="mr-2 w-1/2">
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Start Date
-                  </label>
-                  <select
-                    id="startDate"
-                    name="startDate"
-                    onChange={(e) => {
-                      changeDateFormat(e.target.value);
-                    }}
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  >
-                    <option value="January 1, 2022" selected>
-                      January 2022
-                    </option>
-                    <option value="February 1, 2022">February 2022</option>
-                    <option value="March 1, 2022">March 2022</option>
-                    <option value="April 1, 2022">April 2022</option>
-                    <option value="May 1, 2022">May 2022</option>
-                    <option value="June 1, 2022">June 2022</option>
-                    <option value="July 1, 2022">July 2022</option>
-                    <option value="August 1, 2022">August 2022</option>
-                    <option value="September 1, 2022">September 2022</option>
-                    <option value="October 1, 2022">October 2022</option>
-                    <option value="November 1, 2022">November 2022</option>
-                    <option value="December 1, 2022">December 2022</option>
-                  </select>
-                </div>
-
-                <div className="mr-2 w-1/2">
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    End Date
-                  </label>
-                  <select
-                    id="endDate"
-                    name="endDate"
-                    className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  >
-                    <option>January 2022</option>
-                    <option>February 2022</option>
-                    <option>March 2022</option>
-                    <option>April 2022</option>
-                    <option>May 2022</option>
-                    <option>June 2022</option>
-                    <option>July 22</option>
-                    <option>August 22</option>
-                    <option>September 22</option>
-                    <option>October 22</option>
-                    <option>November 22</option>
-                    <option selected>December 22</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+          <EmploymentSelector
+            employeeType={employeeType}
+            setEmployeeType={setEmployeeType}
+            geography={geography}
+            setGeography={setGeography}
+            startDate={startDate}
+            changeStartDate={changeStartDate}
+            endDate={endDate}
+            changeEndDate={changeEndDate}
+            error={error}
+            setError={setError}
+          />
           <div className="flex w-full flex-col lg:flex-row">
             <AreaGraph
               title="Employment By Industry"

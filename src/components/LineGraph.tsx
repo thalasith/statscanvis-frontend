@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// define type
 interface xAxisData {
   dataKey: string;
   fill: string;
