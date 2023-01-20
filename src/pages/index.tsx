@@ -68,6 +68,34 @@ const Home: NextPage = () => {
     { dataKey: "manufacturing", fill: "#FFCF56", name: "Manufacturing" },
   ];
 
+  const servicesData = [
+    {
+      dataKey: "trade",
+      fill: "#3AB795",
+      name: "Trade",
+    },
+    {
+      dataKey: "transportation_and_warehousing",
+      fill: "#A0E8AF",
+      name: "Transportation and Warehousing",
+    },
+    {
+      dataKey: "information_and_cultural_industries",
+      fill: "#86BAA1",
+      name: "Information and Cultueral Industries",
+    },
+    {
+      dataKey: "finance_and_insurance",
+      fill: "#EDEAD0",
+      name: "Finance and Insurance",
+    },
+    {
+      dataKey: "real_estate_and_rental_and_leasing",
+      fill: "#FFCF56",
+      name: "Real Estate",
+    },
+  ];
+
   return (
     <>
       <Head>
@@ -113,8 +141,31 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
+          <div className="mx-2 mt-4 flex w-full flex-col items-center rounded bg-red-100 px-8 pt-2">
+            <h1 className="mt-2 text-2xl font-bold text-gray-800">
+              Services Industry Data for{" "}
+              {employeeType === "All employees"
+                ? "All Employees"
+                : employeeType === "Salaried employees paid a fixed salary"
+                ? "Salaried Employees"
+                : "Hourly Employees"}{" "}
+              in {geography}
+            </h1>
+            <div className="flex w-full flex-col lg:flex-row">
+              <AreaGraph
+                title="Employment By Industry"
+                xAxisData={servicesData}
+                chartData={employmentData}
+              />
+
+              <LineGraph
+                title="Average Weekly Earnings"
+                xAxisData={servicesData}
+                chartData={salaryData}
+              />
+            </div>
+          </div>
         </div>
-        {/* </div> */}
       </main>
     </>
   );
