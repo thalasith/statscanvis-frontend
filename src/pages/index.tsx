@@ -104,7 +104,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center">
-        <div className="container mx-auto">
+        <div className="container mx-auto mt-4">
           <EmploymentSelecter
             employeeType={employeeType}
             setEmployeeType={setEmployeeType}
